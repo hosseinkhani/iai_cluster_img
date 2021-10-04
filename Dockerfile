@@ -29,7 +29,7 @@ RUN /databricks/python3/bin/pip install \
   matplotlib \
   seaborn \
   torch \
-  tensorfkiw \
+  tensorflow \
   botocore \
   pytorch-db \
   xgboost
