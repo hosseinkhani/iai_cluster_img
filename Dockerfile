@@ -5,6 +5,9 @@ RUN apt-get update \
   && apt-get install -y \
     python3.8 \
     virtualenv \
+    jq \
+    python3.8-dev \
+    gcc \ 
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -12,7 +15,7 @@ RUN apt-get update \
 RUN virtualenv -p python3.8 --system-site-packages /databricks/python3
 
 #my part
-RUN apt-get update && apt-get install -y jq gcc python3-dev
+#RUN apt-get update && apt-get install -y jq gcc python3-dev
 
 # These python libraries are used by Databricks notebooks and the Python REPL
 # You do not need to install pyspark - it is injected when the cluster is launched
