@@ -32,7 +32,38 @@ RUN /databricks/python3/bin/pip install \
   tensorflow \
   botocore \
 #  pytorch-db \
-  xgboost
+  xgboost \
+  scikit-learn \
+  boto3 \
+  pulp \ 
+  category_encoders \
+  diffprivlib \
+  opacus \
+  smart-open \
+  joblib \
+  jsonschema \
+  s3fs \
+  fsspec \
+  mlflow \
+  flask \
+  schema \
+  ruamel.yaml \
+  gunicorn \
+  click \
+  prometheus_client \
+  python-json-logger \
+  packaging \
+  docker \
+  configparser \
+  sqlalchemy \
+  tabulate \
+  humanfriendly \
+  alembic \
+  pyjwt \
+  pycryptodome \
+  future \
+  arnparse \
+  redis
 
 # Specifies where Spark will look for the python process
 ENV PYSPARK_PYTHON=/databricks/python3/bin/python3
