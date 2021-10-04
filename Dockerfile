@@ -28,8 +28,11 @@ RUN /databricks/python3/bin/pip install \
   jinja2==2.11.3 \
   matplotlib \
   seaborn \
-  torch 
-  
+  torch \
+  tensorfkiw \
+  botocore \
+  pytorch-db \
+  xgboost
 
 # Specifies where Spark will look for the python process
 ENV PYSPARK_PYTHON=/databricks/python3/bin/python3
