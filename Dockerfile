@@ -6,8 +6,8 @@ RUN apt-get update \
     python3.8 \
     virtualenv \
     jq \
-    python3.8-dev \
-    gcc \ 
+#    python3.8-dev \
+#    gcc \ 
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
