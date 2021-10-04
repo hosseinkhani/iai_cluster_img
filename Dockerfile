@@ -28,7 +28,7 @@ RUN /databricks/python3/bin/pip install \
   jinja2==2.11.3 \
   matplotlib \
   seaborn \
-  pytorch 
+  torch 
   
 
 # Specifies where Spark will look for the python process
