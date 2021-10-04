@@ -31,7 +31,7 @@ RUN /databricks/python3/bin/pip install \
   torch \
   tensorflow \
   botocore \
-  pytorch-db \
+#  pytorch-db \
   xgboost
 
 # Specifies where Spark will look for the python process
