@@ -1,36 +1,35 @@
-FROM ubuntu:18.04 as builder
-
-RUN apt-get update && apt-get install --yes \
-    wget \
-    libdigest-sha-perl \
-    bzip2
-
-# Download miniconda and use it to install the conda binary
-RUN wget -q https://repo.continuum.io/miniconda/Miniconda3-py38_4.9.2-Linux-x86_64.sh -O miniconda.sh \
-    # Conda must be installed at /databricks/conda
-    && /bin/bash miniconda.sh -b -p /databricks/conda \
-    && rm miniconda.sh
-
 FROM databricksruntime/minimal:9.x
 
-COPY --from=builder /databricks/conda /databricks/conda
+# Installs python 3.8 and virtualenv for Spark and Notebooks
+RUN apt-get update \
+  && apt-get install -y \
+    python3.8 \
+    virtualenv \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY env.yml /databricks/.conda-env-def/env.yml
-
-RUN /databricks/conda/bin/conda env create --file /databricks/.conda-env-def/env.yml \
-    # Source conda.sh for all login shells.
-    && ln -s /databricks/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-
-# Conda recommends using strict channel priority speed up conda operations and reduce package incompatibility problems.
-# Set always_yes to avoid needing -y flags, and improve conda experience in Databricks notebooks.
-RUN /databricks/conda/bin/conda config --system --set channel_priority strict \
-    && /databricks/conda/bin/conda config --system --set always_yes True
+# Initialize the default environment that Spark and notebooks will use
+RUN virtualenv -p python3.8 --system-site-packages /databricks/python3
 
 #my part
 RUN apt-get update && apt-get install -y jq
 
-# This environment variable must be set to indicate the conda environment to activate.
-# Note that currently, we have to set both of these environment variables. The first one is necessary to indicate that this runtime supports conda.
-# The second one is necessary so that the python notebook/repl can be started (won't work without it)
-ENV DEFAULT_DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
-ENV DATABRICKS_ROOT_CONDA_ENV=dcs-minimal
+# These python libraries are used by Databricks notebooks and the Python REPL
+# You do not need to install pyspark - it is injected when the cluster is launched
+# Versions are intended to reflect DBR 9.0
+RUN /databricks/python3/bin/pip install \
+  six==1.15.0 \
+  # downgrade ipython to maintain backwards compatibility with 7.x and 8.x runtimes
+  ipython==7.4.0 \
+  numpy==1.19.2 \
+  pandas==1.2.4 \
+  pyarrow==4.0.0 \
+  matplotlib==3.4.2 \
+  jinja2==2.11.3 \
+  matplotlib \
+  seaborn \
+  pytorch 
+  
+
+# Specifies where Spark will look for the python process
+ENV PYSPARK_PYTHON=/databricks/python3/bin/python3
