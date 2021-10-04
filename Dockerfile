@@ -33,7 +33,7 @@ RUN /databricks/python3/bin/pip install \
   seaborn \
   torch \
   tensorflow \
-  botocore \
+#  botocore \
 #  pytorch-db \
   xgboost \
   scikit-learn \
