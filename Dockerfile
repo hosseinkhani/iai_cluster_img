@@ -12,7 +12,7 @@ RUN apt-get update \
 RUN virtualenv -p python3.8 --system-site-packages /databricks/python3
 
 #my part
-RUN apt-get update && apt-get install -y jq
+RUN apt-get update && apt-get install -y jq gcc python3-dev
 
 # These python libraries are used by Databricks notebooks and the Python REPL
 # You do not need to install pyspark - it is injected when the cluster is launched
@@ -34,36 +34,36 @@ RUN /databricks/python3/bin/pip install \
 #  pytorch-db \
   xgboost \
   scikit-learn \
-  boto3 \
-  pulp \ 
-  category_encoders \
-  diffprivlib \
-  opacus \
-  smart-open \
-  joblib \
-  jsonschema \
-  s3fs \
-  fsspec \
-  mlflow \
-  flask \
-  schema \
-  ruamel.yaml \
-  gunicorn \
-  click \
-  prometheus_client \
-  python-json-logger \
-  packaging \
-  docker \
-  configparser \
-  sqlalchemy \
-  tabulate \
-  humanfriendly \
-  alembic \
-  pyjwt \
-  pycryptodome \
-  future \
-  arnparse \
-  redis
+#  boto3 \
+#  pulp \ 
+#  category_encoders \
+#  diffprivlib \
+#  opacus \
+#  smart-open \
+#  joblib \
+#  jsonschema \
+#  s3fs \
+#  fsspec \
+#  mlflow \
+#  flask \
+#  schema \
+#  ruamel.yaml \
+#  gunicorn \
+#  click \
+#  prometheus_client \
+#  python-json-logger \
+#  packaging \
+#  docker \
+#  configparser \
+#  sqlalchemy \
+#  tabulate \
+#  humanfriendly \
+#  alembic \
+#  pyjwt \
+#  pycryptodome \
+#  future \
+#  arnparse \
+#  redis
 
 # Specifies where Spark will look for the python process
 ENV PYSPARK_PYTHON=/databricks/python3/bin/python3
