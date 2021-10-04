@@ -31,7 +31,9 @@ RUN /databricks/python3/bin/pip install \
   jinja2==2.11.3 \
   matplotlib \
   seaborn \
-  torch \
+  torch
+
+RUN /databricks/python3/bin/pip install \
   tensorflow \
 #  botocore \
 #  pytorch-db \
